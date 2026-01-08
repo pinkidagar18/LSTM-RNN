@@ -56,8 +56,6 @@ Output: "To be or not to be that is the question whether tis nobler
 
 The system follows a layered architecture with clear separation of concerns:
 
-![Architecture Diagram](shakespeare_architecture_no_overlap.png)
-
 ### Components:
 
 1. **User Interface Layer**
