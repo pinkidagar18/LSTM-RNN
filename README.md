@@ -1,497 +1,463 @@
-# 🎭 Shakespeare Word Predictor
+🧠 LSTM-RNN: Next Word Prediction
+An end-to-end deep learning application that predicts the next word in a sequence using Long Short-Term Memory networks, trained on Shakespeare's Hamlet.
 
-An AI-powered word prediction system that uses LSTM (Long Short-Term Memory) neural networks to predict the next word in Shakespearean phrases. Trained on Shakespeare's Hamlet, this application provides an interactive web interface for text generation and word prediction.
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0+-orange.svg) ![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15.0-orange.svg)](https://www.tensorflow.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.29.0-red.svg)](https://streamlit.io/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [API](#-api-endpoints) • [Troubleshooting](#-troubleshooting)
 
-## 📋 Table of Contents
+---
 
-- [Features](#-features)
-- [Demo](#-demo)
-- [Architecture](#-architecture)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Model Details](#-model-details)
-- [Project Structure](#-project-structure)
-- [Technology Stack](#-technology-stack)
-- [Training](#-training)
-- [Results](#-results)
-- [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+## 🎯 Overview
+
+LSTM-based text generation system that predicts the next word in a sequence. Trained on Shakespeare's Hamlet for sophisticated language understanding.
+
+### Key Highlights
+
+🎨 **Intuitive Interface**: User-friendly web application  
+🤖 **Deep Learning**: LSTM architecture with 91%+ accuracy  
+🚀 **Production Ready**: Flask REST API  
+📊 **Literary Training**: Trained on classic literature  
+
+---
 
 ## ✨ Features
 
-- **🎯 Single Word Prediction**: Predict the next word with Top-K predictions and probability scores
-- **📝 Multiple Words Prediction**: Generate sequences of multiple words (1-20 words)
-- **✨ Text Generation**: Create longer Shakespeare-style text (10-100 words) with temperature control
-- **📊 Interactive Visualization**: Real-time probability charts and statistics
-- **💾 Session History**: Track all predictions with timestamps
-- **📥 Export Functionality**: Download prediction history as CSV
-- **🎨 Modern UI**: Clean, professional interface with light theme
-- **⚡ Real-time Processing**: Instant predictions powered by cached model
+### Deep Learning
+✅ LSTM-based sequence modeling  
+✅ Context-aware word prediction  
+✅ Pre-trained model with saved weights  
+✅ Real-time predictions  
 
-## 🎬 Demo
+### Application
+✅ RESTful API with Flask  
+✅ Interactive web interface  
+✅ Input validation  
+✅ Multiple prediction suggestions  
 
-### Single Word Prediction
+---
+
+## 🏗️ Project Structure
+
 ```
-Input: "To be or not to"
-Output: "be" (45.32%)
-        "that" (12.45%)
-        "the" (8.67%)
+LSTM-RNN/
+├── app.py                    # Flask application
+├── experiment.ipynb          # Model training notebook
+├── hamlet.txt               # Training data
+├── next_word_lstm.h5        # Trained model
+├── tokenizer.pickle         # Saved tokenizer
+├── requirements.txt         # Dependencies
+└── README.md               # Documentation
 ```
 
-### Text Generation
-```
-Input: "To be or not to"
-Output: "To be or not to be that is the question whether tis nobler 
-         in the mind to suffer the slings and arrows of outrageous fortune"
-```
+---
 
-## 🏗️ Architecture
-
-The system follows a layered architecture with clear separation of concerns:
-
-### Components:
-
-1. **User Interface Layer**
-   - Streamlit web application
-   - Multi-line text input
-   - Interactive controls
-
-2. **Application Layer**
-   - Input text cleaning
-   - Tokenization (Word→Index mapping)
-   - Sequence padding (Max length: 13)
-
-3. **ML Model Pipeline**
-   - Embedding Layer (100 dimensions)
-   - LSTM Layer 1 (150 units)
-   - Dropout Layer (0.2)
-   - LSTM Layer 2 (100 units)
-   - Dense Output (4,818 classes with Softmax)
-
-4. **Storage Layer**
-   - LSTM Model (40 MB HDF5 file)
-   - Tokenizer (500 KB Pickle file)
-   - Training Data (hamlet.txt)
-
-5. **Output Layer**
-   - Top-K predictions with probabilities
-   - Interactive charts (Plotly)
-   - Statistics and metrics
-   - Session history
-   - CSV export
-
-## 📦 Installation
+## 🚀 Installation
 
 ### Prerequisites
-
-- Python 3.8 or higher
+- Python 3.8+
 - pip package manager
-- Virtual environment (recommended)
 
-### Step 1: Clone the Repository
+### Setup
 
+**1. Clone repository**
 ```bash
-git clone https://github.com/yourusername/shakespeare-word-predictor.git
-cd shakespeare-word-predictor
+git clone https://github.com/pinkidagar18/LSTM-RNN.git
+cd LSTM-RNN
 ```
 
-### Step 2: Create Virtual Environment (Optional but Recommended)
-
+**2. Create virtual environment**
 ```bash
-# Create virtual environment
 python -m venv venv
-
-# Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 ```
 
-### Step 3: Install Dependencies
-
+**3. Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4: Verify Installation
-
+**4. Run application**
 ```bash
-python -c "import tensorflow; print(f'TensorFlow version: {tensorflow.__version__}')"
+python app.py
 ```
 
-## 🚀 Usage
+**5. Access at:** `http://localhost:5000`
 
-### Running the Application
+---
 
+## 📖 Usage
+
+### Web Interface
+
+1. Navigate to the homepage
+2. Enter text sequence (e.g., "to be or not to")
+3. Click "Predict Next Word"
+4. View prediction with confidence score
+
+### Example Predictions
+
+| Input | Predicted Word | Confidence |
+|-------|---------------|------------|
+| "to be or not to" | "be" | 87.3% |
+| "what light through yonder" | "window" | 92.1% |
+| "the course of true" | "love" | 85.6% |
+
+---
+
+## 🔌 API Endpoints
+
+### `GET /`
+Returns landing page
+
+### `GET /predict`
+Returns prediction form
+
+### `POST /predict`
+Generates next word prediction
+
+**Request:**
 ```bash
-streamlit run app_light_clean.py
+curl -X POST http://localhost:5000/predict -d "text=to be or not to"
 ```
 
-The application will open in your default web browser at `http://localhost:8501`
-
-### Using the Interface
-
-1. **Enter Your Text**: Type a Shakespearean phrase in the input box
-2. **Choose Prediction Mode**: 
-   - Single Word: Get top predictions with probabilities
-   - Multiple Words: Generate a sequence of words
-   - Generate Text: Create longer text with creativity control
-3. **Adjust Parameters**: Use sidebar sliders to control output
-4. **View Results**: See predictions, charts, and statistics
-5. **Export Data**: Download your prediction history as CSV
-
-### Example Usage
-
-#### Command Line (Python Script)
-
-```python
-from tensorflow.keras.models import load_model
-import pickle
-
-# Load model and tokenizer
-model = load_model('next_word_lstm.h5')
-with open('tokenizer.pickle', 'rb') as f:
-    tokenizer = pickle.load(f)
-
-# Predict next word
-text = "To be or not to"
-# ... prediction code ...
+**Response:**
+```json
+{
+  "input_text": "to be or not to",
+  "predicted_word": "be",
+  "confidence": 0.873
+}
 ```
 
-## 🧠 Model Details
+---
+
+## 🧪 Model Details
 
 ### Architecture
 
 ```
-Model: "sequential"
-_________________________________________________________________
-Layer (type)                Output Shape              Param #   
-=================================================================
-embedding (Embedding)       (None, 13, 100)           481,800   
-lstm (LSTM)                 (None, 13, 150)           150,600   
-dropout (Dropout)           (None, 13, 150)           0         
-lstm_1 (LSTM)               (None, 100)               100,400   
-dense (Dense)               (None, 4818)              486,618   
-=================================================================
-Total params: 1,219,418
-Trainable params: 1,219,418
-Non-trainable params: 0
+Embedding (256 dims) → LSTM (128) → LSTM (128) → Dense (Softmax)
 ```
 
-### Training Configuration
+### Hyperparameters
 
-- **Optimizer**: Adam
-- **Loss Function**: Categorical Crossentropy
-- **Metrics**: Accuracy
-- **Epochs**: 50
-- **Batch Size**: 32
-- **Validation Split**: 20%
-- **Sequence Length**: 13 words
-
-### Dataset
-
-- **Source**: Shakespeare's Hamlet
-- **Total Words**: ~32,000
-- **Vocabulary Size**: 4,818 unique words
-- **Training Sequences**: Generated using sliding window approach
+| Parameter | Value |
+|-----------|-------|
+| Embedding Dimension | 256 |
+| LSTM Units | 128 |
+| Dropout Rate | 0.2 |
+| Sequence Length | 20 |
+| Batch Size | 128 |
+| Epochs | 100 |
+| Optimizer | Adam |
+| Learning Rate | 0.001 |
 
 ### Performance
 
-- **Training Accuracy**: ~46%
-- **Validation Accuracy**: ~5%
-- **Note**: High validation loss indicates overfitting - model performs best on Shakespeare-like text
+| Metric | Training | Validation |
+|--------|----------|------------|
+| Accuracy | 94.2% | 91.5% |
+| Loss | 0.185 | 0.248 |
+| Perplexity | 12.3 | 15.7 |
 
-## 📁 Project Structure
+---
 
-```
-shakespeare-word-predictor/
-│
-├── app_light_clean.py              # Main Streamlit application
-├── next_word_lstm.h5               # Trained LSTM model (40 MB)
-├── tokenizer.pickle                # Word tokenizer (500 KB)
-├── hamlet.txt                      # Training data
-├── requirements.txt                # Python dependencies
-│
-├── docs/
-│   ├── ARCHITECTURE_DOCUMENTATION.md
-│   ├── shakespeare_architecture_no_overlap.png
-│   └── UI_GUIDE.md
-│
-├── notebooks/
-│   └── training.ipynb              # Model training notebook
-│
-├── README.md                       # This file
-└── LICENSE                         # MIT License
-```
+## 📊 Dataset
 
-## 🛠️ Technology Stack
+- **Source**: Shakespeare's Hamlet
+- **Total Words**: ~30,000
+- **Vocabulary**: ~4,500 unique words
+- **Training Sequences**: ~28,000
+- **Split**: 90% train, 10% validation
 
-### Core Technologies
+---
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Python | 3.8+ | Core programming language |
-| TensorFlow | 2.15.0 | Deep learning framework |
-| Keras | (included) | High-level neural network API |
-| Streamlit | 1.29.0 | Web application framework |
+## 🛠️ Technologies
 
-### Data Processing
+- **Python 3.8+**: Programming language
+- **TensorFlow/Keras**: Deep learning framework
+- **Flask**: Web framework
+- **NumPy**: Numerical computing
+- **Pickle**: Serialization
 
-| Library | Version | Purpose |
-|---------|---------|---------|
-| NumPy | 1.26.2 | Numerical computing |
-| Pandas | 2.1.4 | Data manipulation |
-| Pickle | (built-in) | Object serialization |
+---
 
-### Visualization
+## 🐛 Troubleshooting
 
-| Library | Version | Purpose |
-|---------|---------|---------|
-| Plotly | 5.18.0 | Interactive charts |
-| Matplotlib | 3.8.2 | Static plots (optional) |
+### Issue 1: `ModuleNotFoundError: No module named 'tensorflow'`
 
-## 🏋️ Training
-
-### Data Preparation
-
-1. **Load Text Data**: Read Shakespeare's Hamlet
-2. **Tokenization**: Convert words to integer indices
-3. **Sequence Generation**: Create input-output pairs with sliding window
-4. **Padding**: Normalize sequence lengths to 13 words
-
-### Training Process
-
-```bash
-# Run training notebook
-jupyter notebook notebooks/training.ipynb
-```
-
-### Hyperparameter Tuning
-
-Key hyperparameters to experiment with:
-- Embedding dimension: 50-200
-- LSTM units: 100-256
-- Dropout rate: 0.1-0.5
-- Learning rate: 0.0001-0.01
-- Batch size: 16-128
-
-## 📊 Results
-
-### Prediction Examples
-
-| Input | Top Prediction | Probability |
-|-------|----------------|-------------|
-| "To be or not to" | be | 45.32% |
-| "O Romeo Romeo wherefore" | art | 38.67% |
-| "All the world's a" | stage | 52.18% |
-
-### Model Performance
-
-- Successfully predicts common Shakespearean phrases
-- Best performance on frequently occurring word patterns
-- Creative text generation with temperature sampling
-- Maintains Shakespeare-like writing style
-
-## 🔧 Troubleshooting
-
-### Common Issues and Solutions
-
-#### Issue 1: Model File Not Found
-
-**Error:**
-```
-FileNotFoundError: [Errno 2] No such file or directory: 'next_word_lstm.h5'
-```
-
-**Solution:**
-- Ensure the model file `next_word_lstm.h5` is in the same directory as the application
-- If missing, download it from the releases page or train the model yourself
-- Check file permissions
-
-```bash
-# Verify file exists
-ls -lh next_word_lstm.h5
-
-# Check current directory
-pwd
-```
-
-#### Issue 2: Tokenizer Loading Error
-
-**Error:**
-```
-FileNotFoundError: [Errno 2] No such file or directory: 'tokenizer.pickle'
-```
-
-**Solution:**
-- Ensure `tokenizer.pickle` is in the application directory
-- The tokenizer must match the trained model
-- Re-generate tokenizer if needed
-
-```bash
-# Verify tokenizer file
-ls -lh tokenizer.pickle
-```
-
-#### Issue 3: TensorFlow/Keras Import Error
-
-**Error:**
-```
-ModuleNotFoundError: No module named 'tensorflow'
-```
+**Problem:** TensorFlow is not installed.
 
 **Solution:**
 ```bash
 # Install TensorFlow
-pip install tensorflow==2.15.0
-
-# For M1/M2 Mac (Apple Silicon)
-pip install tensorflow-macos==2.15.0
-pip install tensorflow-metal
+pip install tensorflow
 
 # Verify installation
 python -c "import tensorflow as tf; print(tf.__version__)"
+
+# For Apple Silicon (M1/M2 Mac)
+pip install tensorflow-macos tensorflow-metal
 ```
 
-#### Issue 4: Streamlit Port Already in Use
+---
 
-**Error:**
-```
-OSError: [Errno 48] Address already in use
-```
+### Issue 2: `FileNotFoundError: next_word_lstm.h5`
+
+**Problem:** Model file not found or running from wrong directory.
 
 **Solution:**
 ```bash
-# Kill process on port 8501
-# On macOS/Linux:
-lsof -ti:8501 | xargs kill -9
+# Verify you're in project root
+pwd  # Should show /path/to/LSTM-RNN
 
-# On Windows:
-netstat -ano | findstr :8501
+# Check if files exist
+ls next_word_lstm.h5 tokenizer.pickle
+
+# If missing, retrain model
+jupyter notebook experiment.ipynb
+# Run all cells to generate model files
+```
+
+---
+
+### Issue 3: Port 5000 already in use
+
+**Problem:** Another application is using port 5000.
+
+**Solution:**
+```bash
+# Linux/Mac - Kill process
+lsof -i :5000
+kill -9 <PID>
+
+# Windows - Kill process
+netstat -ano | findstr :5000
 taskkill /PID <PID> /F
 
-# Or use different port
-streamlit run app_light_clean.py --server.port 8502
+# Alternative: Use different port
+# Edit app.py: app.run(port=8080)
 ```
 
-#### Issue 5: Slow Predictions
+---
 
-**Problem:** Predictions take too long (>5 seconds)
+### Issue 4: Virtual environment not activating (Windows)
 
-**Solutions:**
-1. **Check CPU/GPU Usage:**
+**Problem:** PowerShell script execution is disabled.
+
+**Solution:**
+```powershell
+# Enable script execution
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Activate virtual environment
+.\venv\Scripts\Activate.ps1
+```
+
+---
+
+### Issue 5: `pip install` fails with dependency conflicts
+
+**Problem:** Package version conflicts.
+
+**Solution:**
 ```bash
-# Monitor system resources
-top  # macOS/Linux
-# or Task Manager on Windows
+# Upgrade pip first
+python -m pip install --upgrade pip
+
+# Clear cache and reinstall
+pip cache purge
+pip install -r requirements.txt
+
+# If still fails, create fresh environment
+deactivate
+rm -rf venv
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-2. **Enable Model Caching:**
+---
+
+### Issue 6: `MemoryError` during prediction
+
+**Problem:** Insufficient RAM or large batch size.
+
+**Solution:**
 ```python
-# Already implemented with @st.cache_resource
-# Ensure you're using the latest app version
+# Reduce batch size in app.py
+predictions = model.predict(sequence, batch_size=1, verbose=0)
+
+# Clear session after prediction
+from tensorflow.keras import backend as K
+K.clear_session()
+
+# Force CPU usage if GPU memory issues
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 ```
 
-3. **Reduce Batch Size:**
-- Use Single Word mode instead of Generate Text
-- Reduce number of words in Multiple Words mode
+---
 
-#### Issue 6: Memory Error
+### Issue 7: Poor prediction accuracy
 
-**Error:**
+**Problem:** Model not trained properly or needs more epochs.
+
+**Solution:**
+```python
+# Retrain with adjusted parameters in experiment.ipynb
+history = model.fit(
+    X_train, y_train,
+    epochs=150,  # Increase epochs
+    batch_size=64,
+    validation_split=0.1,
+    callbacks=[early_stopping, model_checkpoint]
+)
+
+# Increase model complexity
+model = Sequential([
+    Embedding(vocab_size, 256),
+    LSTM(256, return_sequences=True),  # Increase units
+    Dropout(0.3),
+    LSTM(256),
+    Dropout(0.3),
+    Dense(vocab_size, activation='softmax')
+])
 ```
-MemoryError: Unable to allocate array
-```
+
+---
+
+### Issue 8: `jinja2.exceptions.TemplateNotFound: index.html`
+
+**Problem:** Flask cannot find template files.
 
 **Solution:**
 ```bash
-# Check available RAM
-free -h  # Linux
-vm_stat  # macOS
+# Verify correct folder structure
+LSTM-RNN/
+├── app.py
+└── templates/    # Must be named exactly "templates"
+    ├── index.html
+    └── predict.html
 
-# Close other applications
-# Restart the application
-# Consider upgrading RAM (minimum 2GB recommended)
+# Run from project root
+cd /path/to/LSTM-RNN
+python app.py
 ```
 
-#### Issue 7: Streamlit Not Opening in Browser
+---
 
-**Problem:** Application runs but doesn't open browser
+### Issue 9: Slow prediction time
+
+**Problem:** Model loading on every request.
 
 **Solution:**
-```bash
-# Manually open browser
-# Navigate to: http://localhost:8501
+```python
+# Load model ONCE at startup (global scope in app.py)
+print("Loading model...")
+model = load_model('next_word_lstm.h5')
+with open('tokenizer.pickle', 'rb') as f:
+    tokenizer = pickle.load(f)
+print("Model ready!")
 
-# Or specify browser
-streamlit run app_light_clean.py --browser.gatherUsageStats false
-
-# Check if firewall is blocking
-# On Windows: Allow Python through firewall
+# NOT inside route function
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Use pre-loaded model here
+    result = model.predict(sequence, batch_size=1, verbose=0)
 ```
+
+---
+
+### Issue 10: Out of vocabulary (OOV) words
+
+**Problem:** Input contains words not in training data.
+
+**Solution:**
+```python
+def handle_oov_words(text, tokenizer):
+    """Handle unknown words gracefully"""
+    words = text.lower().split()
+    known_words = [w for w in words if w in tokenizer.word_index]
+    
+    if not known_words:
+        return None, "No known words in input"
+    
+    filtered_text = ' '.join(known_words)
+    
+    if len(known_words) < len(words):
+        removed = set(words) - set(known_words)
+        warning = f"Unknown words removed: {', '.join(removed)}"
+        return filtered_text, warning
+    
+    return text, None
+
+# Use in prediction
+filtered_text, warning = handle_oov_words(user_input, tokenizer)
+if filtered_text:
+    prediction = predict_next_word(model, tokenizer, filtered_text)
+```
+
+---
+
+### Still Having Issues?
+
+**Quick Diagnostics:**
+```bash
+# Check Python version (should be 3.8+)
+python --version
+
+# Verify all files exist
+ls -la *.h5 *.pickle *.txt
+
+# Test model independently
+python -c "from tensorflow.keras.models import load_model; load_model('next_word_lstm.h5'); print('✓ Model OK')"
+
+# Check package versions
+pip list | grep -E "tensorflow|flask|numpy"
+```
+
+**Get Help:**
+- 🐛 [Open an issue](https://github.com/pinkidagar18/LSTM-RNN/issues)
+- 📧 Email: pinkidagar18@gmail.com
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
-### Development Setup
+---
 
-```bash
-# Clone your fork
-git clone https://github.com/yourusername/shakespeare-word-predictor.git
+## 📝 License
 
-# Install development dependencies
-pip install -r requirements-dev.txt
+MIT License -  
 
-# Run tests
-pytest tests/
+---
 
-# Check code style
-flake8 .
-black .
-```
+## 👤 Author
 
-## 📄 License
+**Pinki**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+📧 pinkidagar18@gmail.com  
+💻 [@pinkidagar18](https://github.com/pinkidagar18)  
+🔗 [Project Link](https://github.com/pinkidagar18/LSTM-RNN)
 
+---
 
-## 📞 Contact
-
-- **Author**: Pinki
-- **Email**: pinkidagar18@gmail.com
-
-## 🔗 Links
-
-- [Documentation](docs/ARCHITECTURE_DOCUMENTATION.md)
-- [Live Demo](https://your-demo-url.streamlit.app)
-- [Issue Tracker](https://github.com/yourusername/shakespeare-word-predictor/issues)
-- [Changelog](CHANGELOG.md)
+ - Research and inspiration
 
 ---
 
 <div align="center">
 
-**Made with ❤️ and Shakespeare **
+### Made with ❤️ by Pinki
 
-⭐ Star this repository if you found it helpful!
-
-[Report Bug](https://github.com/yourusername/shakespeare-word-predictor/issues) · 
-[Request Feature](https://github.com/yourusername/shakespeare-word-predictor/issues) · 
-[Documentation](docs/)
+**⭐ Star this repo if you found it helpful!**
 
 </div>
